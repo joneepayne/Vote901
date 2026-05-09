@@ -727,7 +727,7 @@
     <div class="urgency-fact">Louisiana's primaries suspended within 24 hours of the ruling</div>
     <div class="urgency-fact">Tennessee House PASSED new maps splitting Memphis into multiple districts on May 5th</div>
     <div class="urgency-fact">Memphis's District 9 is the only majority-Black district in Tennessee</div>
-    <div class="urgency-fact">The August 6 primary is 93 days away — time is NOW</div>
+    <div class="urgency-fact">The August 6 primary is <span id="days-text"></span> days away — time is NOW
   </div>
   <p class="urgency-text" style="font-weight:600; color:var(--white);">Politicians redraw maps counting on low turnout. 500,000 registered voters. Only 85,000 showed up for the last mayoral election. That's why they think they can get away with this..</p>
   <a href="https://ovr.govote.tn.gov/" target="_blank" class="btn-primary" style="max-width:400px; margin:0 auto; display:block;">Register to Vote →</a>
@@ -801,7 +801,16 @@
     document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
   }
   updateCountdown();
-  setInterval(updateCountdown, 1000);
+setInterval(updateCountdown, 1000);
+const daysText = document.getElementById('days-text');
+if(daysText) {
+  const diff = new Date('2026-08-06T07:00:00-05:00') - new Date();
+  daysText.textContent = Math.floor(diff / (1000*60*60*24));
+  setInterval(() => {
+    const d = new Date('2026-08-06T07:00:00-05:00') - new Date();
+    daysText.textContent = Math.floor(d / (1000*60*60*24));
+  }, 60000);
+}
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
